@@ -1,0 +1,202 @@
+
+%%%%%%%%%%%%%%%%%%%%%% file drug_ssc_2016.tex %%%%%%%%%%%%%%%%%%%%%
+%
+% It uses the 'llncs.cls' for
+% the Lecture Notes in Computer Sciences series.
+% http://www.springer.com/lncs       
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\documentclass[runningheads,a4paper]{llncs}
+
+\usepackage{amssymb}
+\setcounter{tocdepth}{3}
+\usepackage{graphicx}
+
+\usepackage{url}
+\urldef{\mailsa}\path|{alfred.hofmann, ursula.barth, ingrid.haas, frank.holzwarth,|
+\urldef{\mailsb}\path|anna.kramer, leonie.kunz, christine.reiss, nicole.sator,|
+\urldef{\mailsc}\path|erika.siebert-cole, peter.strasser, lncs}@springer.com|    
+\newcommand{\keywords}[1]{\par\addvspace\baselineskip
+\noindent\keywordname\enspace\ignorespaces#1}
+
+\newif\ifdraft
+\draftfalse
+
+
+\begin{document}
+
+\mainmatter  % start of an individual contribution
+
+% title
+\title{DrugAgent: Measuring the Effect of \\Restrictive Deterrence on the Resilience of \\Agent Based Drug Markets}
+%{Restrictive Deterrence in an \\Agent Based Drug Market}
+% Resilience in an Agent Based Drug Market
+% Measuring Resilience of an Agent Based Drug Market
+% Restrictive Deterence in an Aagent Based Drug Market
+%
+% title for the running head
+\titlerunning{DrugAgent: Measuring the Effect of Restrictive Deterrence}
+%
+% the name(s) of the author(s) follow(s) next
+\author{Kirsten Wright %\thanks{Please note that the ..}%
+\and Owen Gallupe \and John}
+%
+% running head again (feature abused to repeat the title also on left hand pages)
+\authorrunning{DrugAgent: Measuring the Effect of Restrictive Deterrence}
+
+
+% affiliations
+% don't give your e-mail address unless want published
+\institute{University of Waterloo,\\
+Waterloo, Canada\\
+% \mailsa\\
+% \mailsb\\
+% \mailsc\\
+% \url{http://www.springer.com/lncs}
+}
+
+
+%\toctitle{Resilience in an Agent Based Drug Market}
+%\tocauthor{Resilience in an Agent Based Drug Market}
+\maketitle
+
+
+\begin{abstract}
+
+In this paper we present DrugAgent, a spatially explicit agent based model of the illegal heroin market. DrugAgent simulates the sale of drugs by individual dealers to users, and the actions of police to suppress the trade. Existing agent based models of drug markets have examined the effects of a range of policing strategies on the drug market. The DrugAgent model extends that work by looking at the effect of restrictive deterrent strategies that drug dealers employ to avoid arrest in the presence of various policing approaches. In particular it looks at how restrictive deterent strategies affect the resilience of heroin market, where resilience is defined as the capacity of the system to maintain consistent levels of sails pricing of drugs in the face of disturbances.
+
+% The abstract should summarize the contents of the paper and should contain at least 70 and at most 150 words.   
+
+\keywords{agent based model, illegal drug market, restrictive deterrence, Repast Java, resilience}
+\end{abstract}
+
+\section{Introduction}
+
+In recent decades, the US has led unprecedented efforts to suppress illegal drug markets. Drug control spending went from \$10 billion in the 1980s to as high as \$35 billion in the mid 1990s \cite{bouchard}. This increased the number of offenders in jails by a factor of ten. 
+
+
+If theory is correct, drug dealers should have raised prices in response to the increased risks. With downward sloping demand curves for users, the higher prices should have encouraged decreasing demand and spikes in the use of substitutes. Neither  has happened. Dealers don't appear to raise prices, even days after major police confiscations, and there is no shortage of new entrants among dealers.
+
+One answer is that the strategies dealers engage in to avoid arrest (taking smaller orders, becoming more selective about who they deal with, etc.) make the market more resilient. Agent based models offer an ideal platform to explore this proposition.
+
+Existing models of illegal drug markets look at the outcome of policing strategies on arrests and crime levels. We flip this and assess the effectiveness of strategies adopted by the dealers in the context of different types of police strategies.
+We look at restrictive deterrence, or “what strategies help heroin dealers evade arrest” instead of “what policing strategies help police shut down the heroin trade.”
+
+
+\section{Background}
+
+Restrictive deterrence was introduced by Gibbs is \cite{Gibbs 1975 paper}. The idea is simple. Where traditional deterrence is generally about offending behaviour occurring or not, restrictive deterrence is the idea that offenders will often do things like reducing the frequency of offending or shifting time and place of offending to avoid enforcement. 
+
+These can include dramatic changes like changing location, or changing to a different drug, perhaps one which is less serious and thus less carefully policed like marijuana. They may also include more subtle arrest strategies.
+continue, increase, or decrease involvement. Bruce Jacobs has done extensive work on the effectiveness of these strategies \cite{some of his papers}. % is the key theoretical source.
+
+We look in particular at the effect of restrictive deterrence strategies on the resilience of illegal drug markets to examine the role they have played in the ability of the drug market to function undisturbed even with massive investments in suppressing them. Bouchard has made the case for applying resilience to drug markets.
+
+The concept of resilience comes from ecology and refers to the capacity of a system to maintain its identity in the face of disturbances. The concept has since been applied in a range of contexts including lake algae dynamics, savannah ecosystems, forest fires, and communities' capacity to adapt to disaster among others \cite{The resilience alliance maintains a database of examples}. 
+
+To apply resilience, it is necessary to specify resilience of what with respect to what \cite{Resilience of what with respect to what paper}.
+Following Bouchard, we look at resilience in drug markets by examining the capacity of the system to maintain the level of drug sales under police intervention.
+
+
+\section{Model Design}
+
+To make the model as closely comparable to existing work as possible, the design draws on the existing model, SimDrug. Although it was implemented entirely independently using a different simulation package and makes a number of different assumptions, it uses treatment of time and space and empirical data set.
+
+Following SimDrug, we model illegal heroin markets in Melbourne, Australia. Our model from 1999 to 2001. Each time period corresponded to one day, and the model ran for three years. The spatial structure of the model was replicated with a 50 x 50 grid in which each grid element represents a city block. There are a set of value layers attached to each grid element recording features of interest. These include the openness of the cell to drug trade. This level of openness increases with trade, as well as crime, where crimes are carried out when users want drugs but have insufficient resources to purchase them, and wealth which increases when crimes are not committed and decreased when there is crime. 
+
+The agents in the model are dealers, users, police, and support workers. Following SimDrug, there are 150, 3000, 10, and 10 of each respectively. These numbers reflect realistic ratios, scaled for the sake of computational ease.
+
+In each time step users choose whether to look for or purchase drugs, dealers select their location, level of activity, and level of visibility, and police attempt probabilistically to catch drug deals in their vicinity. If police catch a dealer, that dealer is arrested, often creating the opportunity for a new dealer to enter the market. Support works play a role in treating users, reducing their dependance on drugs. Dealers with sufficient resources can also become user dealers and resell the drugs they purchase.
+
+%Each simulation scenario is run 100 times.
+
+%``analysis of published statistics from the Australian Bureau of Statistics (High Court and Magistrate Court orders), the Australian Crime Commission (illicit drug seizures), the Ambulance Service Records (attended overdoses), the Australian Institute of Health and Welfare (drug treatment services), the Australian Institute of Criminology (drug use monitoring in Australia, DUMA) and the National Drug and Alcohol Centre (illicit drug reporting system, IDRS). In order to secure enough consistency across the different data sources, most of the collected information corresponds to the situation in Melbourne between 1999 and 2001,''
+
+% There are two drugs. The first is heroin, the second is a generic 'other' drug which could be amphetamines. (40% purity, $125/g). Each has price, purity, availability.
+
+%The model is extended to include restrictive deterrence strategies. It is also modified.
+
+%That model assumes all drug dealers are replaced at arrest of dealers. They also use exogenous price data. These models are reasonable given the available data, but they assume the resilience of the market. Since our goal is to look at the resilience of the market,  This assumes the  resilience of the market. We relax that assumption by modelling explicitly supply demand relationships for (wtp, wts). (Rates of replacement and training/ )Explores also price and demand as drivers of replacement. and Individual level supply/demand relationships.
+%
+
+The dealer strategies to reduce the risk of arrest in response to increased police pressure:
+
+\begin{enumerate}
+   \item reduce frequency of sales;
+   \item  be more selective about who they sell to (they normally won't sell to just anyone, but they may stop selling to people who have only been vouched for but who they don't personally know);
+   \item change location (move to a different block where there are no cops, move inside if they were dealing on the street before).
+   \item reduce the amount they carry;
+  \item change the type of drug they carry (e.g., marijuana instead of heroin).
+\end{enumerate}
+
+%We do not know what the price dynamics are, what number of dealers their are, number of exchanges, actual prices, What risks are incurred if xx deference strategies are adopted. E.g. the dangers associated with entering a new market versus staying within the current one.
+
+
+%\section{Analysis}
+
+%We will look at:
+%\begin{enumerate}
+%\item What is the policing required to stamp out the drug trade? We expect it to be very high.
+%\item What is the force response diagram? %(number, steady state. - what is the pattern when applied and removed, when oscilating)
+%\item What are the return times?
+%\end{enumerate}
+
+%The result hinged critically on the shape of the supply demand curve. It is that willingness to pay.
+
+%- Look at the dynamics of a model of relapse (curve goes more quickly to an addicted curve) (ignore purity effects)
+
+%- Look at the effect of care, the size of the non-user network matters too. Anti-use support plays a  role, closeness of non-users and their disapproval..
+
+%- Look at the interaction of multiple district currencies: time vs money.. yes in principle exchangeable but in practice how much (pay vs look for a dealer)
+
+
+%An emergence of an underclass of traders.
+
+%An arbitrarily complex network. (space/announcement)
+%A significant share of the investment goes into the hands of an elite network of dealers even while the costs are born at the street level by the by the most vulnerable potential users and users, that laws purport to protect.
+%Increase the desegregation/distribution of markets.
+%(amplify winner take all nature of markets, most likely the consolidation).
+%The model has the potential to quantify the extend to which In a certain sense it inverts the rewards of the market. Rewarding the brutal, rather than the service. The market continues to function with a large share of the police investment serving to drive up prices, help with consolidation, and switch the market rewards from those providing the best service to those
+%Police avoidance becomes a second fitness test, a kind of shadow market.
+%- control who speaks to who, act in secrecy, control who buys.
+%These phenomena are fairly robust
+%
+%They hinge on addiction. IF there isn't
+%On the flip side, even if there is a tiny population willing to pay arbitrarily high costs, police excellent way to extract that higher costs.
+%
+%An expected benefit of using a model is to determine which parameter values matter, and so where to focus efforts in gathering empirical data, and where we can have confidence in assumptions.
+
+
+\section{Summary}
+
+There has been extraordinary pressure on the illegal drug market, yet there is
+little impact on either drug sales or drug prices. Prices appear to consistently either remain consistent or declining. This presents a puzzle. 
+
+Bouchard proposes that the drug market is a prime are for applying the concept of resilience from ecology. Agent based models make it possible to explore this proposition rigorously. We look at the effect on the resilience of an agent based model of a drug market of restrictive deterrence strategies that agents engage in to avoid arrest.
+
+
+\begin{thebibliography}{4}
+
+
+\bibitem{jour} Bouchard, M., On the resilience of illegal drug market. Global Crime, 8, no. 4, pp. 325--344 (2007)
+
+\bibitem{j} Jacobs, Bruce A. "Crack Dealers' Apprehension Avoidance Techniques: A Case of Restrictive Deterrence." Justice Quarterly 13, no. 3 (1996): 359-81.
+
+\bibitem{j} Jacobs, Bruce A. "Undercover Deception Clues: A Case of Restrictive Deterrence." Criminology 31, no. 2 (1993): 281-99.
+Jacobs, Bruce A., and Michael Cherbonneau. "Auto theft and restrictive deterrence." Justice Quarterly 31.2 (2014): 344-367.
+
+\bibitem{j} Jacques, Scott, and Danielle M. Reynald. "The Offenders’ Perspective on Prevention Guarding Against Victimization and Law Enforcement." Journal of Research in Crime and Delinquency 49.2 (2012): 269-294.
+
+\bibitem{j} Paternoster, Raymond. "Absolute and Restrictive Deterrence in a Panel of Youth: Explaining the Onset, Persistence/Desistance, and Frequency of Delinquent Offending." Social Problems 36, no. 3 (1989): 289-309.
+
+\bibitem{j} Gallupe, Owen, Martin Bouchard, and Jonathan P. Caulkins. "No change is a good change? Restrictive deterrence in illegal drug markets." Journal of Criminal Justice 39.1 (2011): 81-89.
+
+\bibitem{j} Piza, Eric L., and Victoria A. Sytsma. "Exploring the Defensive Actions of Drug Sellers in Open-air Markets A Systematic Social Observation." Journal of research in crime and delinquency 53.1 (2016): 36-65.
+
+\bibitem{j} Gibbs, Jack P. Crime, Punishment, and Deterrence. Elsevier New York, 1975.
+
+\end{thebibliography}
+
+\end{document}
