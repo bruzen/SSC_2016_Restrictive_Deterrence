@@ -74,53 +74,57 @@ In this paper we present DrugAgent, a spatially explicit agent based model of an
 
 \section{Introduction}
 
-In recent decades, the Unites States has driven unprecedented efforts to suppress illegal drug markets. Drug control spending went from \$10 billion in the 1980s to as high as \$35 billion in the mid 1990s \cite{maccoun_drug_2001,bouchard_resilience_2007}. This increased the number of offenders in jails by a factor of ten \cite{maccoun_drug_2001,bouchard_resilience_2007}.
+The end goal of drug law enforcement (and the justification for the vast amount of resources devoted to it) is to reduce the individual and social harms associated with illicit substance use. Underlying the criminalisation approach to drug policy is the assumption that more enforcement will lead to reduced harms though such mechanisms as: a) restricting supply which is thought to increase prices, which in turn is supposed to lead to reduced demand; b) increasing the risks of apprehension so that people involved in such behaviour will come to view the costs as outweighing the benefits (a specific deterrence approach) and people not involved will see others being punished and decide to avoid the behaviour (a general deterrence approach). Despite unintended consequences (e.g., increased incarceration rates that have disproportionately affected minority populations - CITE Moore & Elkavich, 2008), the belief in the underlying logic behind drug law enforcement has led to increased resource allocation in this area. For example, in the United States, drug control spending went from \$10 billion in the 1980s to as high as \$35 billion in the mid 1990s \cite{maccoun_drug_2001,bouchard_resilience_2007}. This increased the number of offenders in jails by a factor of ten \cite{maccoun_drug_2001,bouchard_resilience_2007}. More recently, US spending specifically in the areas of domestic law enforcement, interdiction, and international efforts (e.g., Drug Enforcement Agency action to disrupt drug production and trafficking in other countries) increased by approximately $372 million from 2010 ($15443.9 million - CITE ONDCP, 2011) to 2016 ($15816.0 - CITE ONDCP, 2016) despite a substantial decline in the international category ($958 million) over that period. In that same span, funding for domestic law enforcement and interdiction increased by $1330.1 million. Ritter et al. (2013) showed similar dynamics for Australia. After adjusting for inflation, they estimated that $740.4 million was spent on drug law enforcement in 2002/03 compared to $1031.8 million in 2009/10.
+
+% Moore, Lisa D., and Amy Elkavich (2008). Who's using and who's doing time: Incarceration, the war on drugs, and public health. American Journal of Public Health 98(5): 782-786.
+
+% Office of National Drug Control Policy (ONDCP). February 2016. National Drug Control Budget: FY 2017 Funding Highlights. Office of National Drug Control Policy. https://www.whitehouse.gov/sites/default/files/ondcp/press-releases/fy_2017_budget_highlights.pdf. Accessed April 9, 2016.
+
+% Office of National Drug Control Policy (ONDCP). February 2011.  National Drug Control Budget: FY 2012 Funding Highlights. https://www.hsdl.org/?view&did=10113. Accessed April 9, 2016.
+
+% Ritter, Alison, McLeod, Ross, & Shanahan, Marian (2013). Monograph No. 24: Government drug policy expenditure in Australia – 2009/10. DPMP Monograph Series. Sydney: National Drug and Alcohol Research Centre. https://ndarc.med.unsw.edu.au/sites/default/files/ndarc/resources/24%20Government%20drug%20policy%20expenditure%20in%20Australia%20-%202009_10.pdf. Accessed April 9, 2016.
+
 
 % John: Since our data is based on Melbourne, should we make this opening more international? US, AUS, anywhere else?
 % Owen: This is probably a good idea. Won't require more than minor rewording.
+%%%% Owen update: I ended up expanding on it quite a bit.
 
-If theory is correct, drug dealers should have raised prices in response to the increased risks \cite{reuter_risks_1986}. With downward sloping demand curves for users, the higher prices should have encouraged decreasing demand and spikes in the use of substitutes \cite{mas-colell_microeconomic_1995}. Neither has happened. Dealers don't appear to raise prices, even days after major police confiscations, and there is no shortage of new entrants among dealers \cite{bouchard_resilience_2007}.
+If theory is correct, drug dealers should raise prices in response to the increased risks \cite{reuter_risks_1986}. With downward sloping demand curves for users, higher prices should encourage decreasing demand and spikes in the use of substitutes \cite{mas-colell_microeconomic_1995}. However, evidence for these dynamics is mixed. For example, Bright and Ritter (2010, p359) showed that "predictions regarding the relationship between law enforcement intensity and price are only partially supported by research." Dealers don't appear to consistently raise prices, even days after major police confiscations, and there is no shortage of new entrants among dealers \cite{bouchard_resilience_2007}.
 
 % Cite microecon text, resilience paper, their citiation..
-
-
-% John: Citations for this? It's a compelling puzzle but needs to be tied to specific studies. Owen, what should we cite?
-% Owen: I can track down some citations.
+% Owen: In the Mas-Colell citation, also cite Bultmann et al. (2007) who indicate that illicit drug demand is price sensitive.
+% Bultmann, Roswitha, Jonathan P. Caulkins, Gustav Feichtinger, and Gernot Tragler (2007). Modeling supply shocks in optimal control models of illicit drug consumption (pp. 285-292). Springer Berlin Heidelberg.
+% Bright, David A., and Alison Ritter (2010). "Retail price as an outcome measure for the effectiveness of drug law enforcement." International Journal of Drug Policy 21, no. 5 (2010): 359-363.
 
 One answer is that the strategies dealers engage in to avoid arrest (such as taking smaller orders, changing location, becoming more selective about who they deal with, etc.) make the market more resilient \cite{bouchard_resilience_2007}. Agent based models offer an ideal platform to explore this proposition.
 
 Existing models of illegal drug markets look at the outcome of policing strategies on arrests and crime levels. We flip this and assess the effectiveness of strategies adopted by dealers in the context of different types of police strategies.
-We look at restrictive deterrence, or “what strategies help heroin dealers evade arrest” instead of “what policing strategies help police shut down the heroin trade.”
+We employ the restrictive deterrence perspective, an approach that allows us to examine the question “what strategies help heroin dealers evade arrest?” instead of “what policing strategies help police shut down the heroin trade?”
 
-% Owen: Note to self...add sentence or two on this fitting with a criminal achievement approach (cite Holly, others).
 
 \section{Background}
 
 Restrictive deterrence was introduced by Gibbs in \cite{gibbs_crime_1975}. The idea is simple. Where traditional deterrence is generally about offending behaviour occurring or not, restrictive deterrence is the idea that offenders will often do things like reducing the frequency of offending or shifting time and place of offending to avoid enforcement.
 
-These can include substantial changes like changing location, or changing to a different drug, perhaps one which is less serious and thus less carefully policed like marijuana. They may also include more subtle arrest-avoidance strategies like moving inside, or having others watch out while they sell. Bruce Jacobs has done extensive work on the effectiveness of these strategies \cite{jacobs_undercover_1993,jacobs_crack_1996,jacobs_auto_2014}. % is the key theoretical source.
+These can include substantial adjustments like changing location of dealing, or changing to a different drug, perhaps one which is less serious and thus less carefully policed like marijuana. They may also include more subtle arrest-avoidance strategies like moving inside, or having others watch out while they sell. Jacobs has done extensive work on the effectiveness of these strategies \cite{jacobs_undercover_1993,jacobs_crack_1996,jacobs_auto_2014}. % is the key theoretical source.
 
-We look in particular at the effect of restrictive deterrence strategies on the resilience of illegal heroin markets in order to examine the role these strategies have played in the ability of the drug market to function even with massive investments in suppressing the drug trade. 
+We look in particular at the effect of restrictive deterrence strategies on the resilience of illegal heroin markets in order to examine the role these strategies play in the ability of the drug market to function even with massive investments in suppressing the drug trade.
 
-The concept of resilience comes from ecology and refers to the capacity of a system to maintain its identity in the face of disturbances \cite{carpenter_metaphor_2001}. The concept has since been applied in a range of contexts including lake algae dynamics, savannah ecosystems, forest fires, and communities' capacity to adapt to disaster among others \cite{walker_thresholds_2004}.
+The concept of resilience comes from ecology and refers to the capacity of a system to maintain its identity in the face of disturbances \cite{carpenter_metaphor_2001}. The concept has since been applied in a range of contexts including lake algae dynamics, savannah ecosystems, forest fires, and communities' capacity to adapt to disaster among others \cite{walker_thresholds_2004}. It has been extended to examine "dark" networks that operate illegally (e.g., Bakker et al., 2012; Gutfraind, 2010). Of particular importance for our study, Bouchard has made the case for applying resilience to drug markets. To apply resilience, it is necessary to specify resilience of what with respect to what \cite{carpenter_metaphor_2001}. Following Bouchard, we look at resilience in drug markets by examining the capacity of the system to maintain the level of drug sales under police intervention \cite{bouchard_resilience_2007}.
 
 % John: Some cites for resilience in dark networks
-
-Bouchard has made the case for applying resilience to drug markets. To apply resilience, it is necessary to specify resilience of what with respect to what \cite{carpenter_metaphor_2001}.
-Following Bouchard, we look at resilience in drug markets by examining the capacity of the system to maintain the level of drug sales under police intervention \cite{bouchard_resilience_2007}.
-
+% Bakker, René M., Raab, Jörg and Milward, H. Brinton (2012), A preliminary theory of dark network resilience. Journal of Policy Analysis and Management, 31(1) 33–62. doi: 10.1002/pam.20619.
+% Gutfraind, Alexander (2010) Optimizing Topological Cascade Resilience Based on the Structure of Terrorist Networks. PLoS ONE 5(11): e13448. doi: 10.1371/journal.pone.0013448
 
 \section{Model Design}
 
 To make the model as closely comparable to existing work as possible, the design draws on the existing model, SimDrug \cite{dray_policing_2008}. Although it was implemented entirely independently using a different simulation package and makes a number of different assumptions, it uses the same treatment of time and space and empirical data set.
 
-% Owen: citation for SimDrug.
-
-Following SimDrug, we model illegal heroin markets in Melbourne, Australia from 1999 to 2001. Each time step in the model correspondeds to one day, and the model runs for three years. As in SimDrug, the spatial structure of the model is a 50 x 50 grid in which each grid element represents one city block. There are a set of value layers attached to each grid element recording features of interest. These include the openness of the cell to drug trade. This level of openness increases with trade. There is also a value layer for crime, where crimes are carried out when users want drugs but have insufficient resources to purchase them. The final value layer is for wealth which increases when crimes are not committed and decreases when there is crime.
+Following SimDrug, we model illegal heroin markets in Melbourne, Australia from 1999 to 2001. Each time step in the model corresponds to one day, and the model runs for three years. As in SimDrug, the spatial structure of the model is a 50 x 50 grid in which each grid element represents one city block. There are a set of value layers attached to each grid element recording features of interest. These include the openness of the cell to drug trade. This level of openness increases with trade. There is also a value layer for crime, where crimes are carried out when users want drugs but have insufficient resources to purchase them. The final value layer is for wealth which increases when crimes are not committed and decreases when there is crime.
 
 The agents in the model are dealers, users, police, and support workers. Following SimDrug, there are 150, 3000, 10, and 10 of each respectively. These numbers reflect realistic ratios, scaled for the sake of computational ease.
 
-In each time step users choose whether to look for or purchase drugs, dealers select their location, level of activity, and level of visibility, and police attempt probabilistically to catch drug deals in their vicinity. If police catch a dealer, that dealer is arrested, often creating the opportunity for a new dealer to enter the market. Support workers play a role in treating users, reducing their dependance on drugs. Dealers with sufficient resources can also become user dealers and resell the drugs they purchase.
+In each time step users choose whether to look for or purchase drugs, dealers select their location, level of activity, and level of visibility, and police attempt probabilistically to catch drug deals in their vicinity. If police catch a dealer, that dealer is arrested, often creating the opportunity for a new dealer to enter the market. Support workers play a role in treating users, reducing their dependence on drugs. Dealers with sufficient resources can also become user dealers and resell the drugs they purchase.
 
 %Each simulation scenario is run 100 times.
 
@@ -183,9 +187,9 @@ The dealer strategies to reduce the risk of arrest in response to increased poli
 
 \section{Summary}
 
-There has been extraordinary pressure on the illegal drug market, yet there has been little impact on either drug sales or drug prices. Prices appear to consistently either remain consistent or declining. This presents a puzzle.
+There has been extraordinary pressure on illegal drug markets, yet drug demand and price have reacted inconsistently. This presents a puzzle. Bouchard \cite{bouchard_resilience_2007} proposed that the drug market is a prime area for applying the concept of resilience from ecology. Agent based models make it possible to explore this proposition rigorously. To achieve this, we look at the effect of restrictive deterrence on the resilience of an agent based model of the illegal drug market.
 
-Bouchard proposes that the drug market is a prime area for applying the concept of resilience from ecology. Agent based models make it possible to explore this proposition rigorously. To achieve this, we look at the effect of restrictive deterence on the resilience of an agent based model of the illegal drug market.
+% there has been little impact on either drug sales or drug prices. Prices appear to consistently either remain consistent or declining. This presents a puzzle.
 
 \bibliography{references}{}
 \bibliographystyle{plain}
